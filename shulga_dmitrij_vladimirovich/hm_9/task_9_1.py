@@ -4,39 +4,40 @@
 
 class Reader:
 
-    def __init__(self, name_reader, number_book=None):
+    def __init__(self, name_reader, number_book=None, list_riders=None):
         self.name_reader = name_reader
         self.number_book = number_book
+        self.list_riders = list_riders
 
     def reader_choice(self, number_book):
         if number_book.is_reserved is True:
-            if self.name_reader in list_riders.keys():
-                for v in list_riders[self.name_reader]:
+            if self.name_reader in self.list_riders.keys():
+                for v in self.list_riders[self.name_reader]:
                     if v == number_book.name_book:
                         print("You have already reserved this book")
                         my_answer = input("You want to give it up: yes/no?: ")
                         if my_answer == "yes":
                             number_book.is_reserved = False
                             self.number_book = None
-                            del list_riders[self.name_reader]
+                            del self.list_riders[self.name_reader]
                             print("You want to cancel your booking")
             else:
                 print("Sorry book was reserved")
 
         elif number_book.is_taken is True:
-            if self.name_reader in list_riders.keys():
-                for v in list_riders[self.name_reader]:
+            if self.name_reader in self.list_riders.keys():
+                for v in self.list_riders[self.name_reader]:
                     if v == number_book.name_book:
                         print("You have already reserved this book")
                         my_answer = input("You want to give it up: yes/no?: ")
                         if my_answer == "yes":
                             number_book.is_taken = False
                             self.number_book = None
-                            del list_riders[self.name_reader]
+                            del self.list_riders[self.name_reader]
                             print("You want to cancel your booking")
             else:
                 print("Sorry book was taken")
-                list_riders[self.name_reader] = [None, None, None]
+                self.list_riders[self.name_reader] = [None, None, None]
 
         else:
             print("Choice what you want:")
@@ -48,15 +49,15 @@ class Reader:
             if status_book == "a":
                 number_book.is_taken = True
                 print("You take this book")
-                list_riders[self.name_reader] = [number_book.name_book, number_book.is_taken, number_book.is_reserved]
+                self.list_riders[self.name_reader] = [number_book.name_book, number_book.is_taken, number_book.is_reserved]
 
             elif status_book == "b":
                 number_book.is_reserved = True
                 print("You reserved this book")
-                list_riders[self.name_reader] = [number_book.name_book, number_book.is_taken, number_book.is_reserved]
+                self.list_riders[self.name_reader] = [number_book.name_book, number_book.is_taken, number_book.is_reserved]
 
     @staticmethod
-    def descriptive_reader():
+    def descriptive_reader(list_riders):
         reader_count = 0
         print("List of readers")
         for key, value in list_riders.items():
@@ -103,14 +104,14 @@ while name != "quit":
 
         my_book = input("Please select number book: ")
         my_book = int(my_book)
-        my_reader = Reader(name)
+        my_reader = Reader(name, list_riders=list_riders)
         if my_book == 1:
             my_reader.reader_choice(my_new_book_1)
-            my_reader.descriptive_reader()
+            my_reader.descriptive_reader(list_riders)
         elif my_book == 2:
             my_reader.reader_choice(my_new_book_2)
-            my_reader.descriptive_reader()
+            my_reader.descriptive_reader(list_riders)
         elif my_book == 3:
             my_reader.reader_choice(my_new_book_3)
-            my_reader.descriptive_reader()
+            my_reader.descriptive_reader(list_riders)
 
