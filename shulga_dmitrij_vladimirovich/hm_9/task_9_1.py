@@ -94,7 +94,7 @@ my_new_book_3.descriptive_book()
 
 name = ""
 while name != "quit":
-    name = input("Please enter your namer and 'quit' if you want exit: ")
+    name = input("Please enter your name and 'quit' if you want exit: ")
     if name == "quit":
         print("Goodbye")
         break
