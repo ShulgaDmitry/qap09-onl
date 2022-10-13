@@ -4,7 +4,7 @@
 
 class Reader:
 
-    def __init__(self, name_reader, number_book=None, list_riders=None):
+    def __init__(self, name_reader, number_book=None, list_riders={}):
         self.name_reader = name_reader
         self.number_book = number_book
         self.list_riders = list_riders
@@ -56,11 +56,10 @@ class Reader:
                 print("You reserved this book")
                 self.list_riders[self.name_reader] = [number_book.name_book, number_book.is_taken, number_book.is_reserved]
 
-    @staticmethod
-    def descriptive_reader(list_riders):
+    def descriptive_reader(self):
         reader_count = 0
         print("List of readers")
-        for key, value in list_riders.items():
+        for key, value in self.list_riders.items():
             reader_count += 1
             print(f"   {reader_count} - {key}; Name book: {value[0]}; Is taken: {value[1]}; "
                   f"Is reserved: {value[2]}")
@@ -94,7 +93,6 @@ my_new_book_3 = Book("Heaven Has No Favorites", "Remarque Erich Maria", 288, "IS
 my_new_book_3.descriptive_book()
 
 name = ""
-list_riders = {}
 while name != "quit":
     name = input("Please enter your namer and 'quit' if you want exit: ")
     if name == "quit":
@@ -104,14 +102,14 @@ while name != "quit":
 
         my_book = input("Please select number book: ")
         my_book = int(my_book)
-        my_reader = Reader(name, list_riders=list_riders)
+        my_reader = Reader(name)
         if my_book == 1:
             my_reader.reader_choice(my_new_book_1)
-            my_reader.descriptive_reader(list_riders)
+            my_reader.descriptive_reader()
         elif my_book == 2:
             my_reader.reader_choice(my_new_book_2)
-            my_reader.descriptive_reader(list_riders)
+            my_reader.descriptive_reader()
         elif my_book == 3:
             my_reader.reader_choice(my_new_book_3)
-            my_reader.descriptive_reader(list_riders)
+            my_reader.descriptive_reader()
 
